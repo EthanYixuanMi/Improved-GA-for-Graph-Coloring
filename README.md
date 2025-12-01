@@ -1,1 +1,1 @@
-# CPS3440-Final-Project
+# Heuristic Approaches for Graph Coloring: Implementation and Empirical Evaluation
