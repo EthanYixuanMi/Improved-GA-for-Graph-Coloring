@@ -3,7 +3,7 @@
 <p align="left">
 
   <!-- School -->
-  <a href="https://wku.edu.cn">
+  <a href="https://wku.edu.cn/en">
     <img src="https://img.shields.io/badge/Wenzhou--Kean%20University-005BBB?style=flat&logo=google-scholar&logoColor=white" alt="Wenzhou-Kean University">
   </a>
   
