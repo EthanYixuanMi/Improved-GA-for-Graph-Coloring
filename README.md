@@ -149,4 +149,31 @@ Results:
 ![Experiment 6](graph_coloring_project/img/exp6_statistics.png)
 
 
+## How to Run
+
+### 1. Install dependencies  
+Make sure Python 3.8+ is installed. Then run:
+
+```bash
+pip install -r requirements.txt
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
