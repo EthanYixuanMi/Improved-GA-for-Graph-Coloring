@@ -64,7 +64,7 @@ We observe:
 - Runtime difference is dramatic: GA is the slowest, greedy the fastest
 
 ### Figure: Algorithm Outputs + Performance Comparison
-![Experiment 1](img/exp1_random_comparison.png)  
+![Experiment 1](graph_coloring_project/img/exp1_random_comparison.png)  
 
 
 
