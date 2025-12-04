@@ -79,7 +79,7 @@ graph_coloring_project/
 - [`graph_coloring/evaluation.py`](graph_coloring_project/graph_coloring/evaluation.py)
 - [`graph_coloring/visualization.py`](graph_coloring_project/graph_coloring/visualization.py)
 - [`graph_coloring/experiments.py`](graph_coloring_project/graph_coloring/experiments.py)
-- [`main.py`](main.py)
+- [`main.py`](graph_coloring_project/main.py)
 
 
 ## Experimental Setup
