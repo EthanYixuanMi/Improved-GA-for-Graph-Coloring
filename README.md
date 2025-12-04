@@ -2,6 +2,23 @@
 A collection of classical heuristics and an improved Genetic Algorithm for solving the graph coloring problem, with full experimental evaluation and visualization.  
 
 
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Key Contributions](#key-contributions)
+- [Project Structure](#project-structure)
+- [Experimental Setup](#experimental-setup)
+- [Experiment Results](#experiment-results--figures)
+  - [Experiment 1 — Random Graph Comparison](#experiment-1--random-graph-comparison)
+  - [Experiment 2 — Challenging Graph Structures](#experiment-2--challenging-graph-structures)
+  - [Experiment 3 — Scalability](#experiment-3--scalability)
+  - [Experiment 4 — Density Analysis](#experiment-4--density-analysis)
+  - [Experiment 5 — Crown Graph Analysis](#experiment-5--crown-graph-analysis-adversarial-for-greedy)
+  - [Experiment 6 — Statistical Analysis](#experiment-6--statistical-analysis-30-trials)
+- [How to Run](#️-how-to-run)
+- [Conclusion](#-conclusion)
+- [Limitations  Future Work](#-limitations--future-work)
+
+
 ## Project Overview
 
 This project implements six graph coloring algorithms — ranging from simple greedy heuristics
