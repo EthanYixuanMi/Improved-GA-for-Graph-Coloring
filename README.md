@@ -158,9 +158,16 @@ Make sure Python 3.8+ is installed. Then run:
 pip install -r requirements.txt
 ```
 
+### 2. Run all experiments
+```bash
+python main.py
+```
 
+This will automatically:
 
-
+- Generate all experiment figures  
+- Save them under `img/`  
+- Print summary statistics in the terminal  
 
 
 
