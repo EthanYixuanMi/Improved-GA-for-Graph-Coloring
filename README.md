@@ -169,7 +169,9 @@ This will automatically:
 - Save them under `img/`  
 - Print summary statistics in the terminal  
 
-
+### 3. Running specific experiments
+You may edit `main.py` or directly call functions in
+`graph_coloring/experiments.py` to run individual experiments.
 
 
 
