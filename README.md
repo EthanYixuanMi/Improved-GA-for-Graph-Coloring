@@ -255,6 +255,33 @@ These improvements would make the GA both **faster** and **more scalable**, whil
 advantage of producing high-quality colorings on difficult graph families.
 
 
+## References  
+
+[1] D. J. A. Welsh and M. B. Powell, “An upper bound for the chromatic number of a graph and its application to timetabling problems,” *The Computer Journal*, vol. 10, no. 1, pp. 85–86, 1967.
+
+[2] D. Brélaz, “New methods to color the vertices of a graph,” *Communications of the ACM*, vol. 22, no. 4, pp. 251–256, 1979.
+
+[3] P. San Segundo, “A new DSATUR-based algorithm for exact vertex coloring,” *Computers & Operations Research*, vol. 39, no. 7, pp. 1724–1733, 2012.
+
+[4] C. Fleurent and J. A. Ferland, “Genetic and hybrid algorithms for graph coloring,” *Annals of Operations Research*, vol. 63, no. 3, pp. 437–461, 1996.
+
+[5] A. E. Eiben, J. K. Van Der Hauw, and J. I. van Hemert, “Graph coloring with adaptive evolutionary algorithms,” *Journal of Heuristics*, vol. 4, no. 1, pp. 25–46, 1998.
+
+[6] P. Galinier and J.-K. Hao, “Hybrid evolutionary algorithms for graph coloring,” *Journal of Combinatorial Optimization*, vol. 3, no. 4, pp. 379–397, 1999.
+
+[7] A. E. Eiben and J. E. Smith, *Introduction to Evolutionary Computing*. Springer, 2015.
+
+[8] M. R. Garey and D. S. Johnson, *Computers and Intractability*. W. H. Freeman, 2002.
+
+[9] T. R. Jensen and B. Toft, *Graph Coloring Problems*. John Wiley & Sons, 2011.
+
+[10] G. J. Chaitin, “Register allocation & spilling via graph coloring,” *ACM SIGPLAN Notices*, vol. 17, no. 6, pp. 98–101, 1982.
+
+[11] P. Galinier and A. Hertz, “A survey of local search methods for graph coloring,” *Computers & Operations Research*, vol. 33, no. 9, pp. 2547–2562, 2006.
+
+[12] E. Cantú-Paz, *Efficient and Accurate Parallel Genetic Algorithms*, vol. 1. Springer, 2000.
+
+[13] D. S. Johnson and M. A. Trick, *Cliques, Coloring, and Satisfiability: Second DIMACS Implementation Challenge, October 11–13, 1993*, vol. 26. American Mathematical Society, 1996.
 
 
 
