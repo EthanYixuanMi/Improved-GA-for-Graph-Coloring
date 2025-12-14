@@ -19,10 +19,8 @@ from .visualization import (
 )
 
 
+# The first experiment will compare all algorithms on a random graph
 def experiment_random_graph_comparison() -> None:
-    """
-    Experiment 1: single random graph, compare all algorithms.
-    """
     print("=== Experiment 1: Random Graph Comparison ===")
     G = generate_random_graph(80, 0.35, seed=42)
     results = run_all_algorithms(
@@ -60,10 +58,8 @@ def experiment_random_graph_comparison() -> None:
     save_and_show(fig, "exp1_random_comparison.png")
 
 
+# The second experiment will focus on challenging graph structures
 def experiment_challenging_graph_structures() -> None:
-    """
-    Experiment 2: Mycielski, Crown, Adversarial, Bipartite-like.
-    """
     print("\n=== Experiment 2: Challenging Graph Structures ===")
 
     graphs = {
@@ -103,10 +99,8 @@ def experiment_challenging_graph_structures() -> None:
     save_and_show(fig, "exp2_challenging_graphs.png")
 
 
+# The third experiment will test scalability by varying n
 def experiment_scalability() -> None:
-    """
-    Experiment 3: Scalability with graph size (n).
-    """
     print("\n=== Experiment 3: Scalability Test (vary n) ===")
     sizes = [30, 50, 80, 100, 150, 200]
     alg_names = ["Greedy", "DSatur", "LDF", "Welsh-Powell", "Random Greedy", "Genetic"]
@@ -154,10 +148,8 @@ def experiment_scalability() -> None:
     save_and_show(fig, "exp3_scalability.png")
 
 
+# The fourth experiment will test the effect of density by varying p
 def experiment_density() -> None:
-    """
-    Experiment 4: impact of edge density p.
-    """
     print("\n=== Experiment 4: Density Analysis (vary p) ===")
     densities = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
     n_nodes = 60
@@ -208,10 +200,8 @@ def experiment_density() -> None:
     save_and_show(fig, "exp4_density.png")
 
 
+# The fifth experiment will analyze crown graphs
 def experiment_crown_analysis() -> None:
-    """
-    Experiment 5: Crown graphs (adversarial for greedy).
-    """
     print("\n=== Experiment 5: Crown Graph Analysis ===")
     crown_sizes = [4, 6, 8, 10]
     alg_names = ["Greedy", "DSatur", "Genetic"]
@@ -255,10 +245,8 @@ def experiment_crown_analysis() -> None:
     save_and_show(fig, "exp5_crown_analysis.png")
 
 
+# The last experiment will perform statistical analysis over multiple trials
 def experiment_statistics(num_trials: int = 30) -> None:
-    """
-    Experiment 6: Statistical analysis on random graphs.
-    """
     print("\n=== Experiment 6: Statistical Analysis ===")
     n_nodes, p_edges = 60, 0.35
     alg_names = ["Greedy", "DSatur", "LDF", "Welsh-Powell", "Random Greedy", "Genetic"]
@@ -304,9 +292,6 @@ def experiment_statistics(num_trials: int = 30) -> None:
 
 
 def run_all_experiments() -> None:
-    """
-    Convenience function to run all experiments in sequence.
-    """
     experiment_random_graph_comparison()
     experiment_challenging_graph_structures()
     experiment_scalability()

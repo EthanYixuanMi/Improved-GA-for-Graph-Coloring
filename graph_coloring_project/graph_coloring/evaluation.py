@@ -11,32 +11,20 @@ from .algorithms import (
     genetic_algorithm_coloring,
 )
 
-
+# Verify if the coloring is valid (no two adjacent nodes have the same color)
 def verify_coloring(graph: nx.Graph, colors: Dict[Any, int]) -> bool:
-    """
-    Check if a coloring is proper: no edge has both endpoints with same color.
-    """
     for u, v in graph.edges():
         if colors.get(u) == colors.get(v):
             return False
     return True
 
-
+# Run all algorithms on the given graph and return their results
 def run_all_algorithms(
     graph: nx.Graph,
     use_genetic: bool = True,
     genetic_params: dict | None = None,
 ) -> Dict[str, dict]:
-    """
-    Run all algorithms on the given graph and return a result dict:
 
-    results[alg_name] = {
-        'colors': {node: color},
-        'num_colors': int,
-        'time': float (seconds),
-        'valid': bool
-    }
-    """
     results: Dict[str, dict] = {}
 
     algorithms = [

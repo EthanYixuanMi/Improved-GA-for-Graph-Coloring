@@ -7,14 +7,17 @@ import networkx as nx
 
 ColoringResult = Tuple[Dict[Any, int], int, float]  # (colors, num_colors, time_seconds)
 
+# Basic Greedy Coloring Algorithms
 
+# This algorithm will distribute colors to nodes in order
+# of their appearance in the graph's node list, and make sure the neighbors have different colors.
+
+# This algorithm will not guarantee the minimum number of colors used, but it is fast and simple to implement.
 def greedy_coloring(graph: nx.Graph) -> ColoringResult:
-    """
-    Basic greedy coloring - by node iteration order.
-    """
-    start_time = time.perf_counter()
-    colors: Dict[Any, int] = {}
+    start_time = time.perf_counter() # Start timing
+    colors: Dict[Any, int] = {} # Dictionary to hold colors assigned to each node
 
+    # Iterate through each node in the graph
     for node in graph.nodes():
         neighbor_colors = {colors[n] for n in graph.neighbors(node) if n in colors}
         color = 0
@@ -22,19 +25,24 @@ def greedy_coloring(graph: nx.Graph) -> ColoringResult:
             color += 1
         colors[node] = color
 
-    end_time = time.perf_counter()
-    num_colors = len(set(colors.values()))
+    end_time = time.perf_counter() # End timing
+    num_colors = len(set(colors.values())) # Count unique colors used
     return colors, num_colors, end_time - start_time
 
 
+
+# DSatur Algorithm
+
+# This algorithm will color the difficult nodes first,
+# based on the saturation degree (number of different colors to which a node is adjacent).
+# It selects the uncolored node with the highest saturation degree at each step.
+
+# This algorithm is more sophisticated and can yield better colorings than basic greedy methods.
 def dsatur_coloring(graph: nx.Graph) -> ColoringResult:
-    """
-    DSatur algorithm - saturation degree heuristic.
-    """
     start_time = time.perf_counter()
     colors: Dict[Any, int] = {}
     saturation = {node: 0 for node in graph.nodes()}
-    degree = {node: graph.degree(node) for node in graph.nodes()}
+    degree = {node: graph.degree(node) for node in graph.nodes()} # Precompute degrees
     uncolored = set(graph.nodes())
 
     while uncolored:
@@ -58,14 +66,21 @@ def dsatur_coloring(graph: nx.Graph) -> ColoringResult:
     return colors, num_colors, end_time - start_time
 
 
+
+# Largest Degree First Algorithm
+
+# This algorithm colors nodes in order of their degree,
+# starting with the node that has the highest degree.
+# It assigns the smallest available color that is not used by its neighbors.
+
+# This method is straightforward and often yields good results for many types of graphs.
 def largest_degree_first(graph: nx.Graph) -> ColoringResult:
-    """
-    Largest Degree First greedy algorithm.
-    """
     start_time = time.perf_counter()
     colors: Dict[Any, int] = {}
 
+    # Sort nodes by degree in descending order
     nodes_by_degree = sorted(graph.nodes(), key=lambda x: graph.degree(x), reverse=True)
+
     for node in nodes_by_degree:
         neighbor_colors = {colors[n] for n in graph.neighbors(node) if n in colors}
         color = 0
@@ -78,10 +93,15 @@ def largest_degree_first(graph: nx.Graph) -> ColoringResult:
     return colors, num_colors, end_time - start_time
 
 
+
+# Welsh–Powell Algorithm
+
+# This algorithm colors nodes in order of their degree,
+# starting with the node that has the highest degree.
+# It assigns the same color to as many uncolored nodes as possible before moving to the next color.
+
+# This method is efficient and can produce good colorings for many graphs.
 def welsh_powell_coloring(graph: nx.Graph) -> ColoringResult:
-    """
-    Welsh–Powell graph coloring algorithm.
-    """
     start_time = time.perf_counter()
     colors: Dict[Any, int] = {}
 
@@ -91,6 +111,7 @@ def welsh_powell_coloring(graph: nx.Graph) -> ColoringResult:
 
     while uncolored:
         available = set(uncolored)
+        # assign current_color to as many available nodes as possible
         for node in sorted_nodes:
             if node in available:
                 colors[node] = current_color
@@ -106,10 +127,16 @@ def welsh_powell_coloring(graph: nx.Graph) -> ColoringResult:
     return colors, num_colors, end_time - start_time
 
 
+
+# Randomized Greedy Coloring
+
+# This algorithm performs multiple iterations of a greedy coloring,
+# each time with a random order of nodes.
+# It keeps track of the best coloring found across all iterations.
+
+# This method can yield better results than a single greedy pass,
+# especially on graphs where node order significantly affects coloring.
 def random_greedy_coloring(graph: nx.Graph, iterations: int = 20) -> ColoringResult:
-    """
-    Randomized greedy: shuffle node ordering multiple times, keep the best.
-    """
     start_time = time.perf_counter()
     nodes = list(graph.nodes())
     best_colors: Dict[Any, int] = {}
@@ -134,6 +161,14 @@ def random_greedy_coloring(graph: nx.Graph, iterations: int = 20) -> ColoringRes
     return best_colors, best_num_colors, end_time - start_time
 
 
+
+# Advanced Genetic Algorithm Coloring
+
+# This algorithm uses a genetic algorithm to evolve a population of colorings over multiple generations.
+# It employs selection, crossover, and mutation operations to explore the solution space.
+
+# This method can find high-quality colorings, especially for complex graphs,
+# but it is computationally more intensive than simpler algorithms.
 def genetic_algorithm_coloring(
     graph: nx.Graph,
     population_size: int = 50,
@@ -141,14 +176,6 @@ def genetic_algorithm_coloring(
     mutation_rate: float = 0.1,
     elite_ratio: float = 0.1,
 ) -> ColoringResult:
-    """
-    Genetic Algorithm for graph coloring.
-
-    Representation:
-        - Individual: list[int], len = number of nodes, each gene is a color index.
-    Fitness:
-        - First minimize number of conflicts, then number of distinct colors.
-    """
 
     start_time = time.perf_counter()
     nodes = list(graph.nodes())
@@ -160,9 +187,11 @@ def genetic_algorithm_coloring(
     _, greedy_num_colors, _ = greedy_coloring(graph)
     max_colors = greedy_num_colors + 2
 
+    # This function creates a random individual (coloring)
     def create_individual() -> list[int]:
         return [random.randint(0, max_colors - 1) for _ in range(n)]
 
+    # This function evaluates the fitness of an individual
     def fitness(individual: list[int]) -> tuple[int, int]:
         conflicts = 0
         for i in range(n):
@@ -172,10 +201,8 @@ def genetic_algorithm_coloring(
         colors_used = len(set(individual))
         return conflicts, colors_used
 
+    # This function repairs an individual to ensure no adjacent nodes share the same color
     def repair(individual: list[int]) -> list[int]:
-        """
-        Fix conflicts node-by-node if a node has same color as a neighbor.
-        """
         ind = individual.copy()
         for i in range(n):
             neighbor_colors = {ind[j] for j in adj_list[i]}
@@ -187,6 +214,7 @@ def genetic_algorithm_coloring(
                 ind[i] = c
         return ind
 
+    # This function performs crossover between two parents to produce two children
     def crossover(p1: list[int], p2: list[int]) -> tuple[list[int], list[int]]:
         if n == 1:
             return p1[:], p2[:]
@@ -195,6 +223,7 @@ def genetic_algorithm_coloring(
         c2 = p2[:point] + p1[point:]
         return c1, c2
 
+    # This function mutates an individual by randomly changing some of its colors
     def mutate(individual: list[int]) -> list[int]:
         ind = individual.copy()
         for i in range(n):
@@ -207,10 +236,8 @@ def genetic_algorithm_coloring(
                         break
         return ind
 
+    # This function selects two individuals from the population using tournament selection
     def select(population: list[list[int]], fitnesses: list[tuple[int, int]]) -> list[list[int]]:
-        """
-        Tournament selection (k=3).
-        """
         selected: list[list[int]] = []
         pop_fit = list(zip(population, fitnesses))
         for _ in range(2):
@@ -226,6 +253,7 @@ def genetic_algorithm_coloring(
     best_individual: list[int] | None = None
     best_fitness = (float("inf"), float("inf"))
 
+    # This loop runs the genetic algorithm for a specified number of generations
     for _ in range(generations):
         fitnesses = [fitness(ind) for ind in population]
 

@@ -2,19 +2,13 @@ import random
 import networkx as nx
 
 
+# This function generates a random Erdős-Rényi graph.
 def generate_random_graph(n: int, p: float, seed: int | None = None) -> nx.Graph:
-    """
-    Erdős–Rényi G(n, p) random graph.
-    """
     return nx.erdos_renyi_graph(n, p, seed=seed)
 
 
+# This function generates a crown graph of size n.
 def generate_crown_graph(n: int) -> nx.Graph:
-    """
-    Crown graph on 2n vertices.
-    Two partitions A={a0..a_{n-1}}, B={b0..b_{n-1}},
-    edges between ai and bj if i != j.
-    """
     G = nx.Graph()
     for i in range(n):
         G.add_node(f"a{i}")
@@ -28,18 +22,13 @@ def generate_crown_graph(n: int) -> nx.Graph:
     return G
 
 
+# This function generates a Mycielski graph of order k.
 def generate_mycielski_graph(k: int) -> nx.Graph:
-    """
-    Mycielski graph of size k (networkx built-in).
-    """
     return nx.mycielski_graph(k)
 
 
+# This function generates an adversarial graph for greedy coloring algorithms.
 def generate_adversarial_for_greedy(n: int) -> nx.Graph:
-    """
-    Adversarial graph for simple greedy coloring.
-    Split vertices into two halves, with different densities.
-    """
     G = nx.Graph()
     G.add_nodes_from(range(n))
     half = n // 2
@@ -65,12 +54,8 @@ def generate_adversarial_for_greedy(n: int) -> nx.Graph:
     return G
 
 
+# This function generates a bipartite-like graph with some noise.
 def generate_bipartite_like_graph(n_left: int, n_right: int, p: float = 0.5) -> nx.Graph:
-    """
-    Almost-bipartite random graph:
-    - Start from random bipartite between two partitions.
-    - Add a few edges inside each partition.
-    """
     G = nx.Graph()
     left = [f"L{i}" for i in range(n_left)]
     right = [f"R{i}" for i in range(n_right)]

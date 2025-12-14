@@ -31,10 +31,8 @@ COLORS = {
 }
 
 
+
 def ensure_img_dir() -> str:
-    """
-    Create 'img' directory if not exists, and return its path.
-    """
     out_dir = "img"
     os.makedirs(out_dir, exist_ok=True)
     return out_dir
@@ -46,9 +44,8 @@ def visualize_colored_graph(
     title: str,
     ax: plt.Axes,
 ) -> None:
-    """
-    Draw a colored graph using spring layout.
-    """
+
+    # Visualize the colored graph using matplotlib and networkx.
     n = graph.number_of_nodes()
     if n == 0:
         ax.set_title(title)
@@ -81,9 +78,8 @@ def plot_comparison_bar(
     ax: plt.Axes,
     title: str = "Number of Colors Used",
 ) -> None:
-    """
-    Bar chart comparing number of colors among algorithms.
-    """
+
+    # Bar chart comparing number of colors used among algorithms.
     algorithms: List[str] = list(results.keys())
     num_colors = [results[alg]["num_colors"] for alg in algorithms]
     x = np.arange(len(algorithms))
@@ -117,10 +113,7 @@ def plot_time_comparison(
     ax: plt.Axes,
     title: str = "Execution Time (ms)",
 ) -> None:
-    """
-    Bar chart comparing runtime among algorithms (ms).
-    Uses log-scale if spread is huge.
-    """
+    # Bar chart comparing execution time among algorithms.
     algorithms: List[str] = list(results.keys())
     times_ms = [results[alg]["time"] * 1000.0 for alg in algorithms]
     x = np.arange(len(algorithms))
@@ -155,9 +148,6 @@ def plot_time_comparison(
 
 
 def save_and_show(fig: plt.Figure, filename: str) -> None:
-    """
-    Save figure into img/ directory and show it.
-    """
     out_dir = ensure_img_dir()
     path = os.path.join(out_dir, filename)
     fig.savefig(path, dpi=200, bbox_inches="tight", facecolor="white")
