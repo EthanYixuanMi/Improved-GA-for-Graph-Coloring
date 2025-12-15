@@ -171,7 +171,7 @@ Crown graphs are bipartite and 2-colorable, but greedy performs extremely poorly
 This experiment highlights the importance of using intelligent heuristics.
 
 #### Figure: Performance on Crown graphs (worst-case for greedy)  
-![Experiment 5](graph_coloring_project/img/exp5_crown_analysis.png)
+![Experiment 5](graph_coloring_project/img/exp5_adversarial.png)
 
 ### Experiment 6 — Statistical Analysis (30 Trials)
 
