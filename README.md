@@ -252,8 +252,13 @@ While the improved GA delivers strong coloring results, it has several limitatio
 - **Implementing crossover operators tailored to graph structure**  
   Could further reduce conflicts and color count.
 
-These improvements would make the GA both **faster** and **more scalable**, while maintaining its
-advantage of producing high-quality colorings on difficult graph families.
+- **Learning‑based mutation (GA + Reinforcement Learning / Machine Learning)**
+  Since the current mutation operator selects colors randomly, future work can explore learning‑guided mutation strategies.
+  For example, a reinforcement learning agent can learn which color assignments are likely to reduce conflicts based on graph structure, or a small neural model can predict promising mutation actions.
+  This hybrid GA+ML direction could make mutation more adaptive, reduce randomness, and improve convergence stability on difficult graphs.
+
+  These improvements would make the GA both **faster** and **more scalable**, while maintaining its
+  advantage of producing high-quality colorings on difficult graph families.
 
 
 ## References  
