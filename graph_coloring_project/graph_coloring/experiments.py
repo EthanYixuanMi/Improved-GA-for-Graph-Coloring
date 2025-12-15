@@ -202,47 +202,90 @@ def experiment_density() -> None:
 
 # The fifth experiment will analyze crown graphs
 def experiment_crown_analysis() -> None:
-    print("\n=== Experiment 5: Crown Graph Analysis ===")
-    crown_sizes = [4, 6, 8, 10]
-    alg_names = ["Greedy", "DSatur", "Genetic"]
+    # Crown-n scaling
+    ns = [4, 6, 8, 10]
+    greedy_colors, dsatur_colors, ga_colors = [], [], []
+    opt_colors = [2] * len(ns)
 
-    # for plotting
-    greedy_colors: List[int] = []
-    dsatur_colors: List[int] = []
-    genetic_colors: List[int] = []
-
-    print(f"{'n':<5} {'Optimal':<8} {'Greedy':<8} {'DSatur':<8} {'Genetic':<8}")
-    for n in crown_sizes:
+    for n in ns:
         G = generate_crown_graph(n)
-        results = run_all_algorithms(
-            G,
-            use_genetic=True,
-            genetic_params={"population_size": 50, "generations": 80},
-        )
-        optimal = 2
-        g = results["Greedy"]["num_colors"]
-        d = results["DSatur"]["num_colors"]
-        ga = results["Genetic"]["num_colors"]
+        results = run_all_algorithms(G)
+        greedy_colors.append(results["Greedy"]["num_colors"])
+        dsatur_colors.append(results["DSatur"]["num_colors"])
+        ga_colors.append(results["Genetic"]["num_colors"])
 
-        greedy_colors.append(g)
-        dsatur_colors.append(d)
-        genetic_colors.append(ga)
+    # Representative instance (Crown-8) for visualization + single-instance comparison
+    n0 = 8
+    G0 = generate_crown_graph(n0)
+    results0 = run_all_algorithms(G0)
 
-        print(f"{n:<5} {optimal:<8} {g:<8} {d:<8} {ga:<8}")
+    # ---- Figure layout ----
+    fig, axes = plt.subplots(2, 3, figsize=(18, 10))
 
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.plot(crown_sizes, greedy_colors, marker="o", label="Greedy")
-    ax.plot(crown_sizes, dsatur_colors, marker="o", label="DSatur")
-    ax.plot(crown_sizes, genetic_colors, marker="o", label="Genetic")
-    ax.axhline(2, color="gray", linestyle="--", label="Optimal")
+    # Top row: graph visualizations (Crown-8)
+    visualize_colored_graph(
+        G0,
+        results0["Greedy"]["colors"],
+        title=f"Greedy: {results0['Greedy']['num_colors']} colors",
+        ax=axes[0, 0],
+    )
+    visualize_colored_graph(
+        G0,
+        results0["DSatur"]["colors"],
+        title=f"DSatur: {results0['DSatur']['num_colors']} colors",
+        ax=axes[0, 1],
+    )
+    visualize_colored_graph(
+        G0,
+        results0["Genetic"]["colors"],
+        title=f"Genetic: {results0['Genetic']['num_colors']} colors",
+        ax=axes[0, 2],
+    )
 
-    ax.set_xlabel("n in Crown-n")
+    # Bottom-left: scaling line chart
+    ax = axes[1, 0]
+    ax.plot(ns, greedy_colors, marker="o", label="Greedy")
+    ax.plot(ns, dsatur_colors, marker="s", label="DSatur")
+    ax.plot(ns, ga_colors, marker="^", label="Genetic")
+    ax.plot(ns, opt_colors, linestyle="--", label="Optimal=2")
+    ax.set_title("Crown Graph: Color Comparison")
+    ax.set_xlabel("Crown Graph Parameter n")
     ax.set_ylabel("Number of Colors")
-    ax.set_title("Experiment 5: Crown Graphs (Adversarial for Greedy)")
     ax.grid(True, linestyle="--", alpha=0.4)
     ax.legend()
 
-    save_and_show(fig, "exp5_crown_analysis.png")
+    # Bottom-middle: single-instance bar comparison (Crown-8)
+    plot_comparison_bar(results0, ax=axes[1, 1], title="Crown-8: Algorithm Comparison")
+    axes[1, 1].tick_params(axis="x", labelrotation=35)
+
+    # Bottom-right: improvement over greedy (%)
+    ax = axes[1, 2]
+    improvements_dsatur = [(g - d) / g * 100 if g > 0 else 0.0 for g, d in zip(greedy_colors, dsatur_colors)]
+    improvements_ga = [(g - a) / g * 100 if g > 0 else 0.0 for g, a in zip(greedy_colors, ga_colors)]
+
+    x = np.arange(len(ns))
+    width = 0.36
+    ax.bar(x - width / 2, improvements_dsatur, width, label="DSatur vs Greedy")
+    ax.bar(x + width / 2, improvements_ga, width, label="Genetic vs Greedy")
+    ax.set_xticks(x)
+    ax.set_xticklabels([str(n) for n in ns])
+    ax.set_title("Heuristic Improvement over Greedy")
+    ax.set_xlabel("Crown Graph Parameter n")
+    ax.set_ylabel("Improvement (%)")
+    ax.grid(True, axis="y", linestyle="--", alpha=0.4)
+    ax.legend()
+
+    for i, v in enumerate(improvements_dsatur):
+        ax.text(i - width / 2, v + 1.0, f"{v:.0f}%", ha="center", va="bottom", fontsize=9)
+    for i, v in enumerate(improvements_ga):
+        ax.text(i + width / 2, v + 1.0, f"{v:.0f}%", ha="center", va="bottom", fontsize=9)
+
+    fig.suptitle("Crown Graph: Adversarial Case Analysis", fontsize=16, fontweight="bold")
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
+
+    # IMPORTANT: match your report's expected filename
+    save_and_show(fig, "exp5_adversarial.png")
+
 
 
 # The last experiment will perform statistical analysis over multiple trials
