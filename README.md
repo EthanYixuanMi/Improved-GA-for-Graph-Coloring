@@ -234,6 +234,7 @@ While the improved GA delivers strong coloring results, it has several limitatio
 - **High runtime cost** compared to greedy and DSatur  
 - **Variance in performance** across different runs due to stochastic operators  
 - **Not optimized for very large graphs** (n > 500)
+- **Mutation operator is purely random**, which sometimes leads to unstable convergence.
 
 ### Future Extensions
 - **Hybrid DSatur + GA approach**  
